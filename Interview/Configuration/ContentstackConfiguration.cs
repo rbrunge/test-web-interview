@@ -11,4 +11,5 @@ public class ContentstackConfiguration
     public string ApiKey { get; set; }
     public string Environment { get; set; }
     public string DeliveryToken { get; set; }
+    public string Locale { get; set; }
 }
