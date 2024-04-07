@@ -1,8 +1,8 @@
 using Contentstack.Core;
 using Contentstack.Core.Configuration;
-using Contentstack.Core.Internals;
 using Interview.Configuration;
 using Interview.Services;
+using Interview.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -12,7 +12,7 @@ using NSubstitute;
 namespace InterviewTests.Integration;
 
 [TestClass, TestCategory("integration")]
-public class ContentstackServiceTests
+public class ContentstackServiceIntegrationTests
 {
     private ContentstackOptions _contentstackOptions = null!;
     private ContentstackClient _contentstackClient = null!;
@@ -23,7 +23,7 @@ public class ContentstackServiceTests
     {
         // Create a configuration object
         var config = new ConfigurationBuilder()
-            .AddUserSecrets<ContentstackServiceTests>()
+            .AddUserSecrets<ContentstackServiceIntegrationTests>()
             .Build();
 
         _contentstackOptions = new ContentstackOptions
@@ -39,7 +39,7 @@ public class ContentstackServiceTests
         _locale = config["Contentstack:Locale"]!;
     }
 
-    private ContentstackService GetContentstackService()
+    private IContentstackService GetContentstackService()
     {
         var logger = Substitute.For<ILogger<ContentstackService>>();
         var memoryCache = Substitute.For<IMemoryCache>();

@@ -1,6 +1,5 @@
 using Contentstack.Core;
 using Contentstack.Core.Configuration;
-using Contentstack.Core.Internals;
 using Contentstack.Core.Models;
 using Interview.Configuration;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 namespace InterviewTests.Integration;
 
 [TestClass, TestCategory("integration")]
-public class ContentstackClientTests
+public class ContentstackClientIntegrationTests
 {
     private ContentstackOptions _contentstackOptions = null!;
     private ContentstackClient _contentstackClient = null!;
@@ -19,7 +18,7 @@ public class ContentstackClientTests
     {
         // Create a configuration object
         var config = new ConfigurationBuilder()
-            .AddUserSecrets<ContentstackClientTests>()
+            .AddUserSecrets<ContentstackClientIntegrationTests>()
             .Build();
 
         _contentstackOptions = new ContentstackOptions
@@ -75,7 +74,7 @@ public class ContentstackClientTests
     public async Task ContentstackClient_GetEntryContent_OK()
     {
         (string ModelUid, string EntryUid) entry = _contentstackOptions.Environment.Equals("preview")
-            ? ("home_page", "bltc6f07f8ae4bf7bb9") 
+            ? ("home_page", "bltc6f07f8ae4bf7bb9")
             : ("clever_public_ct_youtube_video", "blt56330984c515aaea");
 
         var entryContent = await GetEntryAsync(entry.ModelUid, entry.EntryUid, _locale, _contentstackClient);
